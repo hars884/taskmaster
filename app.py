@@ -46,16 +46,18 @@ def login():
         usr=userlo.query.filter_by(usernam=username)
         if usr and usr.password == password:
             session['id'] = usr.id
-            return redirect(url_for())
+            return redirect(url_for('homepage'))
         else:
             error = "Please enter correct username and password."
             return render_template('login.html', error=error)
     return render_template("login.html")
 
 @app.route('home',method=['GET','POST'])
-def home():
+def homepage():
     taskb=tasks.query.filter_by(id=session['id'])
     return render_template("home.html",taskf=taskb) 
+
+@app.
 if __name__ == '__main__':
     with app.app_context():
         db.create_all()
