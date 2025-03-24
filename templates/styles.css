@@ -25,9 +25,9 @@ h1{
     padding: 20px;
     border: 4px solid #ffffff; 
 }
-.loginn {
+.login {
     width: 300px;
-    height: 170px; 
+    height: 160px; 
     background-color: black; 
     color: limegreen;
     margin: 0 auto;
@@ -51,10 +51,10 @@ input {
     border-radius: 5px;
 }
 
-button {
+.submit {
     width: 250px;
     padding: 10px;
-    margin: 15px 0;
+    margin: 40px 0;
     background-color: limegreen;
     border: 2px solid #fff;
     font-family: Arial, sans-serif;
@@ -65,8 +65,44 @@ button {
     display: block;
     width: 100%;
 }
+.submit-1 {
+    width: 250px;
+    padding: 10px;
+    margin: 10px auto;
+    background-color: limegreen;
+    border: 2px solid #fff;
+    font-family: Arial, sans-serif;
+    font-size: 16px;
+    cursor: pointer;
+    transition: 0.3s;
+    border-radius: 5px; 
+    display: block;
+}
 
 button:hover {
-    background-color:rgb(255, 61, 7); 
+    background-color:rgb(255, 247, 11); 
     color: black;
+}
+.container-1{
+    width: 400px;
+    height: 300px;
+    background-color: #0099ff; 
+    text-align: center;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px 0px rgba(255, 255, 255, 0.75);
+    padding: 20px;
+    border: 4px solid #ffffff; 
+}
+.login-1 {
+    width: 300px;
+    height: 220px; 
+    background-color: black; 
+    color: limegreen;
+    margin: 0 auto;
+    text-align: left;
+    font-family:Arial, sans-serif;
+    font-size: 16px;
+    border-radius: 10px;
+    padding: 15px;
+    border: 3px solid #ffffff; 
 }

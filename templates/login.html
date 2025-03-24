@@ -3,23 +3,43 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pixel Login</title>
+    <title>Login</title>
     <link rel="stylesheet" href="styles.css">
     <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
 </head>
 <body>
     <h1>TASK MANAGER</h1>
+    <div class="forms">
+        <div class="form-wrapper is-active">
+            <button type="button" class="switcher switcher-login">
+                Sign up
+                <span class="underline"></span>
+            </div>
     <div class="container">
-        <div class="loginn">
+        <div class="login">
             <label for="username">Username:</label>
             <input type="text" id="username" placeholder="Enter Username">
-            
             <label for="password">Password:</label>
             <input type="password" id="password" placeholder="Enter Password">
-            
-            <button>LOGIN</button>
+            <button class="submit">LOGIN</button>
         </div>
     </div>
-
+    <div class="form-wrapper">
+        <button type="button" class="switcher switcher-signup">
+            Sign in
+            <span class="underline"></span>
+        </button>
+        <div class="container-1">
+        <div class="login-1">
+            <label for="signup-email">E-mail</label>
+            <input id="signup-email" type="email" required>
+            <label for="signup-password">Password</label>
+            <input id="signup-password" type="password" required>
+            <label for="signup-password-confirm">Confirm password</label>
+            <input id="signup-password-confirm" type="password" required>
+          </div>
+          <button class="submit-1">CONTINUE</button>
+    </div>
+</div>
 </body>
 </html>
