@@ -19,7 +19,7 @@ class userlo(db.Model):
 class tasks(db.Model):
     id=db.Column(db.Integer, primary_key=True)
     task=db.Column(db.String(100), nullable=False)
-    data=db.Column(db.Date, nullable=False)
+    date=db.Column(db.Date, nullable=False)
     remark=db.Column(db.String(100), nullable=False)
 
     def __repr__(self):
@@ -43,13 +43,19 @@ def login():
     if request.method == 'POST':
         username = request.form['username']
         password = request.form['password']
+        usr=userlo.query.filter_by(usernam=username)
+        if usr and usr.password == password:
+            session['id'] = usr.id
+            return redirect(url_for())
+        else:
+            error = "Please enter correct username and password."
+            return render_template('login.html', error=error)
+    return render_template("login.html")
 
-        if username in userlo and userlo[username]['password'] == password:
-            session['username'] = username
-            session['role'] = users[username]['role']
-
-
-
+@app.route('home',method=['GET','POST'])
+def home():
+    taskb=tasks.query.filter_by(id=session['id'])
+    return render_template("home.html",taskf=taskb) 
 if __name__ == '__main__':
     with app.app_context():
         db.create_all()
