@@ -42,8 +42,10 @@ def login():
 
 @app.route('/login', methods=['POST'])
 def login_post():
-    username = request.form['username']
-    password = request.form['password']
+    username = request.form.get('username')
+    password = request.form.get('password')
+    if not username or not password:  
+        return "Please fill in all fields!"
     user = userlo.query.filter_by(usernam=username).first()
     if user and user.password == password:
         session['username'] = username
