@@ -9,7 +9,6 @@
 <body>
     <h1>Task List</h1>
     <div class="text-wrapper">
-        <!-- Add Task Form -->
         <form action="{{ url_for('add_task') }}" method="POST">
             <input type="text" name="task" placeholder="Task" required>
             <input type="date" name="date" required>
@@ -20,7 +19,6 @@
             </select>
             <button type="submit">Add Task</button>
         </form>
-        <!-- Task Table -->
         <table border="1">
             <tr>
                 <th>ID</th>
@@ -28,6 +26,7 @@
                 <th>Date</th>
                 <th>Remark</th>
                 <th>Status</th>
+                <th>Action</th>
             </tr>
             {% for task in usr %}
             <tr>
@@ -36,10 +35,26 @@
                 <td>{{ task.date }}</td>
                 <td>{{ task.remark }}</td>
                 <td>{{ task.status }}</td>
+                <td><a href="{{ url_for('home', edit=task.id) }}">Edit</a></td>
             </tr>
             {% endfor %}
         </table>
+        {% if edit_task %}
+        <h2>Edit Task</h2>
+        <form action="{{ url_for('edit_task', task_id=edit_task.id) }}" method="POST">
+            <input type="text" name="task" value="{{ edit_task.task }}" required>
+            <input type="date" name="date" value="{{ edit_task.date.strftime('%Y-%m-%d') }}" required>
+            <input type="text" name="remark" value="{{ edit_task.remark }}" required>
+            <select name="status" required>
+                <option value="Pending" {% if edit_task.status == 'Pending' %}selected{% endif %}>Pending</option>
+                <option value="Completed" {% if edit_task.status == 'Completed' %}selected{% endif %}>Completed</option>
+            </select>
+            <button type="submit">Update Task</button>
+            <a href="{{ url_for('home') }}">Cancel</a>
+        </form>
+        {% endif %}
     </div>
+    <a href="{{ url_for('logout') }}">Logout</a>
     <script src="../static/script.js"></script>
 </body>
 </html>

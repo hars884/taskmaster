@@ -57,12 +57,10 @@ def signup_post():
     username = request.form.get('username')
     password = request.form.get('password')
     confirm_password = request.form.get('confirm_password')
-
     if password != confirm_password:
         return "Passwords do not match, try again!"
     if userlo.query.filter_by(usernam=username).first():
         return "Username already exists!"
-    
     new_user = userlo(usernam=username, password=password)
     db.session.add(new_user)
     db.session.commit()
@@ -74,7 +72,9 @@ def home():
     if 'username' not in session:
         return redirect(url_for('login'))
     usr = tasks.query.all()
-    return render_template('home.html', usr=usr)
+    edit_id = request.args.get('edit', type=int)  # Get ?edit=<id> from URL
+    edit_task = tasks.query.get(edit_id) if edit_id else None
+    return render_template('home.html', usr=usr, edit_task=edit_task)
 
 @app.route('/add_task', methods=['POST'])
 def add_task():
@@ -86,6 +86,18 @@ def add_task():
     status = request.form['status']
     new_task = tasks(task=task, date=date, remark=remark, status=status)
     db.session.add(new_task)
+    db.session.commit()
+    return redirect(url_for('home'))
+
+@app.route('/edit_task/<int:task_id>', methods=['POST'])
+def edit_task(task_id):
+    if 'username' not in session:
+        return redirect(url_for('login'))
+    task = tasks.query.get_or_404(task_id)
+    task.task = request.form['task']
+    task.date = datetime.strptime(request.form['date'], '%Y-%m-%d')
+    task.remark = request.form['remark']
+    task.status = request.form['status']
     db.session.commit()
     return redirect(url_for('home'))
 
