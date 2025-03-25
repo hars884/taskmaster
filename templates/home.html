@@ -4,29 +4,42 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../static/styles1.css">
-    <title>home</title>
+    <title>Home</title>
 </head>
 <body>
     <h1>Task List</h1>
-    
-    <table border="1">
-        <tr>
-            <th>ID</th>
-            <th>Task</th>
-            <th>Date</th>
-            <th>Remark</th>
-            <th>Status</th>
-        </tr>
-        {% for task in usr %}
-        <tr>
-            <td>{{ task.id }}</td>
-            <td>{{ task.task }}</td>
-            <td>{{ task.date }}</td>
-            <td>{{ task.remark }}</td>
-            <td>{{ task.status }}</td>
-        </tr>
-        {% endfor %}
-    </table>
+    <div class="text-wrapper">
+        <!-- Add Task Form -->
+        <form action="{{ url_for('add_task') }}" method="POST">
+            <input type="text" name="task" placeholder="Task" required>
+            <input type="date" name="date" required>
+            <input type="text" name="remark" placeholder="Remark" required>
+            <select name="status" required>
+                <option value="Pending">Pending</option>
+                <option value="Completed">Completed</option>
+            </select>
+            <button type="submit">Add Task</button>
+        </form>
+        <!-- Task Table -->
+        <table border="1">
+            <tr>
+                <th>ID</th>
+                <th>Task</th>
+                <th>Date</th>
+                <th>Remark</th>
+                <th>Status</th>
+            </tr>
+            {% for task in usr %}
+            <tr>
+                <td>{{ task.id }}</td>
+                <td>{{ task.task }}</td>
+                <td>{{ task.date }}</td>
+                <td>{{ task.remark }}</td>
+                <td>{{ task.status }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
     <script src="../static/script.js"></script>
 </body>
 </html>

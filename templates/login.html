@@ -9,47 +9,40 @@
 </head>
 <body>
     <h1>TASK MANAGER</h1>
-    <form action="{{ url_for('login_post') }}" method="POST">
-        <div class="forms">
+    <div class="forms">
+        <form action="{{ url_for('login_post') }}" method="POST">
             <div class="form-wrapper login-wrapper is-active">
                 <button type="button" class="switcher switcher-login">Sign up</button>
                 <div class="container">
                     <div class="login">
                         <label for="username">Username:</label>
-                        <input type="text" id="username" name="username" required>  <!-- Fixed -->
-                        
+                        <input type="text" id="username" name="username" required>
                         <label for="password">Password:</label>
-                        <input type="password" id="password" name="password" required>  <!-- Fixed -->
-                        
+                        <input type="password" id="password" name="password" required>
                         <button class="submit" type="submit">LOGIN</button>
                     </div>
                 </div>
             </div>
-    </form>
-    <form action="{{ url_for('signup_post') }}" method="POST">
-        <div class="form-wrapper signup-wrapper">
-            <button type="button" class="switcher switcher-signup">
-                Sign in
-            </button>
-            <div class="container">
-                <div class="login">
-                    <label for="signup-email">E-mail</label>
-                <input id="signup-email" type="email" name="email" required>
-
-                <label for="username">Username</label>
-                <input id="username" type="text" name="username" required>
-
-                <label for="signup-password">Password</label>
-                <input id="signup-password" type="password" name="password" required>
-
-                <label for="signup-password-confirm">Confirm password</label>
-                <input id="signup-password-confirm" type="password" name="confirm_password" required>
-                    <button class="submit" type="submit">CONTINUE</button>
+        </form>
+        <form action="{{ url_for('signup_post') }}" method="POST">
+            <div class="form-wrapper signup-wrapper">
+                <button type="button" class="switcher switcher-signup">Sign in</button>
+                <div class="container">
+                    <div class="login">
+                        <label for="signup-email">E-mail</label>
+                        <input id="signup-email" type="email" name="email" required>
+                        <label for="signup-username">Username</label>
+                        <input id="signup-username" type="text" name="username" required>
+                        <label for="signup-password">Password</label>
+                        <input id="signup-password" type="password" name="password" required>
+                        <label for="signup-password-confirm">Confirm password</label>
+                        <input id="signup-password-confirm" type="password" name="confirm_password" required>
+                        <button class="submit" type="submit">CONTINUE</button>
+                    </div>
                 </div>
             </div>
-        </div>
-    </div> 
-</form>
+        </form>
+    </div>
     <script src="../static/script.js"></script>
 </body>
 </html>
