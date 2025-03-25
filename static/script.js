@@ -1,8 +1,8 @@
 document.addEventListener("DOMContentLoaded", function() {
     const loginWrapper = document.querySelector(".login-wrapper");
     const signupWrapper = document.querySelector(".signup-wrapper");
-    const loginSwitcher = document.querySelector(".switcher-signup");  // Corrected selector
-    const signupSwitcher = document.querySelector(".switcher-login");  // Corrected selector
+    const loginSwitcher = document.querySelector(".switcher-signup");  
+    const signupSwitcher = document.querySelector(".switcher-login"); 
 
     signupSwitcher.addEventListener("click", function() {
         loginWrapper.classList.remove("is-active");

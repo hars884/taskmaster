@@ -4,27 +4,30 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="../static/styles.css">
     <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
 </head>
 <body>
     <h1>TASK MANAGER</h1>
-
-    <div class="forms">
-        <div class="form-wrapper login-wrapper is-active">
-            <button type="button" class="switcher switcher-login">
-                Sign up
-            </button>
-            <div class="container">
-                <div class="login">
-                    <label for="username">Username:</label>
-                    <input type="text" id="username" placeholder="Enter Username">
-                    <label for="password">Password:</label>
-                    <input type="password" id="password" placeholder="Enter Password">
-                    <button class="submit">LOGIN</button>
+    <form action="{{ url_for('login_post') }}" method="POST">
+        <div class="forms">
+            <div class="form-wrapper login-wrapper is-active">
+                <button type="button" class="switcher switcher-login">Sign up</button>
+                <div class="container">
+                    <div class="login">
+                        <label for="username">Username:</label>
+                        <input type="text" id="username" name="username" required>  <!-- Fixed -->
+                        
+                        <label for="password">Password:</label>
+                        <input type="password" id="password" name="password" required>  <!-- Fixed -->
+                        
+                        <button class="submit" type="submit">LOGIN</button>
+                    </div>
                 </div>
             </div>
-        </div>
+        </div>    
+    </form>
+    
         <div class="form-wrapper signup-wrapper">
             <button type="button" class="switcher switcher-signup">
                 Sign in
@@ -32,17 +35,16 @@
             <div class="container">
                 <div class="login">
                     <label for="signup-email">E-mail</label>
-                    <input id="signup-email" type="email" required>
+                    <input id="signup-email" type="email" name="email" required>
                     <label for="signup-password">Password</label>
-                    <input id="signup-password" type="password" required>
+                    <input id="signup-password" type="password" name="password" required>
                     <label for="signup-password-confirm">Confirm password</label>
-                    <input id="signup-password-confirm" type="password" required>
+                    <input id="signup-password-confirm" type="password" name="confirm_password" required>
                     <button class="submit">CONTINUE</button>
                 </div>
             </div>
         </div>
-    </div>    
-
-    <script src="script.js"></script>
+    </div> 
+    <script src="../static/script.js"></script>
 </body>
 </html>
