@@ -3,17 +3,30 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <link rel="stylesheet" href="../static/styles1.css">
+    <title>home</title>
 </head>
 <body>
-    <button onclick="">add task</button>
-    <div>
-        {% for urs in taskf %}
-        <div>{{urs.task}}</div>
-            <input type="checkbox" name="task" id="task">
-            <label for="task"></label>
-
+    <h1>Task List</h1>
+    
+    <table border="1">
+        <tr>
+            <th>ID</th>
+            <th>Task</th>
+            <th>Date</th>
+            <th>Remark</th>
+            <th>Status</th>
+        </tr>
+        {% for task in usr %}
+        <tr>
+            <td>{{ task.id }}</td>
+            <td>{{ task.task }}</td>
+            <td>{{ task.date }}</td>
+            <td>{{ task.remark }}</td>
+            <td>{{ task.status }}</td>
+        </tr>
         {% endfor %}
-    </div>
+    </table>
+    <script src="../static/script.js"></script>
 </body>
 </html>
