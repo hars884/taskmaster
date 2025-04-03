@@ -6,7 +6,7 @@
     <title>Document</title>
 </head>
 <body>
-    <form method="POST">
+    <form action="{{ url_for('taskadder') }}" method="POST">
         <label for="task">Task:</label>
         <input type="text" id="task" name="task" required><br><br>
         <label for="">Date:</label>
@@ -14,7 +14,7 @@
         <label for="remark">Remark:</label>
         <input type="text" id="remark" name="remark" required><br><br>
         <label for="deadline">Deadline:</label>
-        <input type="text" id="deadline" name="deadline" required><br><br>
+        <input type="date" id="deadline" name="deadline" required><br><br>
         <button type="submit">add task</button>
     </form>
 </body>

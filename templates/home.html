@@ -3,16 +3,40 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Home - Task Management</title>
 </head>
 <body>
-     <a href="{{ url_for('taskadder') }}">Add Task</a>    
-    <!--<div>
-        {% for urs in taskf %}
-        <div>{{urs.task}}</div>
-        {% endfor %}
-    </div> -->
-    <h6>HOME PAGE</h6>
-
+    <a href="{{url_for('home')}}">logout </a>
+    <a href="{{url_for('taskadder')}}">add task</a>
+    <h1>All Tasks</h1>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Task</th>
+                <th>Remark</th>
+                <th>Deadline</th>
+                <th>Status</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for task in tasks %}
+            <tr>
+                <td>{{ task.task }}</td>
+                <td>{{ task.remark }}</td>
+                <td>{{ task.deadline }}</td>
+                <td>{{ task.status }}</td>
+                <td>
+                    <!-- Edit Button -->
+                    <a href="{{ url_for('edit_task', tid=task.tid) }}">Edit</a>
+                    <!-- Status Button -->
+                    <form action="{{ url_for('update_status', tid=task.tid) }}" method="POST">
+                        <button type="submit">Change Status</button>
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
 </body>
 </html>
