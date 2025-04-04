@@ -3,7 +3,7 @@ from flask_sqlalchemy import SQLAlchemy
 import secrets
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:harshu8564@localhost:5432/task'  # Add your correct password
+app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:roobika@localhost:5432/taskk'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 app.secret_key = secrets.token_hex(32)
