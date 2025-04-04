@@ -55,7 +55,6 @@ def login_post():
 
 @app.route('/signup', methods=['POST'])
 def signup_post():
-    email = request.form.get('email')
     username = request.form.get('username')
     password = request.form.get('password')
     confirm_password = request.form.get('confirm_password')
@@ -74,7 +73,7 @@ def home():
     if 'username' not in session:
         return redirect(url_for('login'))
     usr = tasks.query.all()
-    edit_id = request.args.get('edit', type=int)  # Get ?edit=<id> from URL
+    edit_id = request.args.get('edit', type=int) 
     edit_task = tasks.query.get(edit_id) if edit_id else None
     return render_template('home.html', usr=usr, edit_task=edit_task)
 
@@ -91,17 +90,17 @@ def add_task():
     db.session.commit()
     return redirect(url_for('home'))
 
-@app.route('/edit_task/<int:task_id>', methods=['POST'])
-def edit_task(task_id):
-    if 'username' not in session:
-        return redirect(url_for('login'))
-    task = tasks.query.get_or_404(task_id)
-    task.task = request.form['task']
-    task.date = datetime.strptime(request.form['date'], '%Y-%m-%d')
-    task.remark = request.form['remark']
-    task.status = request.form['status']
-    db.session.commit()
-    return redirect(url_for('home'))
+# @app.route('/edit_task/<int:task_id>', methods=['POST'])
+# def edit_task(task_id):
+#     if 'username' not in session:
+#         return redirect(url_for('login'))
+#     task = tasks.query.get_or_404(task_id)
+#     task.task = request.form['task']
+#     task.date = datetime.strptime(request.form['date'], '%Y-%m-%d')
+#     task.remark = request.form['remark']
+#     task.status = request.form['status']
+#     db.session.commit()
+#     return redirect(url_for('home'))
 
 @app.route('/logout')
 def logout():

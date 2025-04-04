@@ -9,14 +9,13 @@
 <body>
     <h1>Task List</h1>
     <div class="text-wrapper">
+        <div class="menu">
         <form action="{{ url_for('add_task') }}" method="POST">
             <input type="text" name="task" placeholder="Task" required>
             <input type="date" name="date" required>
             <input type="text" name="remark" placeholder="Remark" required>
-            <select name="status" required>
-                <option value="Pending">Pending</option>
-                <option value="Completed">Completed</option>
-            </select>
+            <input type="checkbox" id="status" name="status" value="status">
+            <label for="status"> Completed</label><br>
             <button type="submit">Add Task</button>
         </form>
         <table border="1">
@@ -39,6 +38,7 @@
             </tr>
             {% endfor %}
         </table>
+        </div>
         {% if edit_task %}
         <h2>Edit Task</h2>
         <form action="{{ url_for('edit_task', task_id=edit_task.id) }}" method="POST">
@@ -46,13 +46,13 @@
             <input type="date" name="date" value="{{ edit_task.date.strftime('%Y-%m-%d') }}" required>
             <input type="text" name="remark" value="{{ edit_task.remark }}" required>
             <select name="status" required>
-                <option value="Pending" {% if edit_task.status == 'Pending' %}selected{% endif %}>Pending</option>
-                <option value="Completed" {% if edit_task.status == 'Completed' %}selected{% endif %}>Completed</option>
+                <option value="Pending" {% if edit_task.status == 'Pending' %} selected {% endif %}>Pending</option>
+                <option value="Completed" {% if edit_task.status == 'Completed' %} selected {% endif %}>Completed</option>
             </select>
             <button type="submit">Update Task</button>
             <a href="{{ url_for('home') }}">Cancel</a>
         </form>
-        {% endif %}
+        {% endif %} 
     </div>
     <a href="{{ url_for('logout') }}">Logout</a>
     <script src="../static/script.js"></script>
