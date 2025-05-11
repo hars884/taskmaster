@@ -1,0 +1,110 @@
+{% extends "base.html" %}
+
+{% block title %}Add Task{% endblock %}
+
+{% block content %}
+    <h1 class="mb-4">Add New Task</h1>
+    
+    <form method="POST" action="{{ url_for('add_task') }}">
+        <div class="mb-3">
+            <label for="title" class="form-label">Title</label>
+            <input type="text" class="form-control" id="title" name="title" required>
+        </div>
+        
+        <div class="mb-3">
+            <label for="description" class="form-label">Description</label>
+            <textarea class="form-control" id="description" name="description" rows="3"></textarea>
+        </div>
+        
+        <div class="mb-3">
+            <label for="deadline" class="form-label">Deadline</label>
+            <input type="datetime-local" class="form-control" id="deadline" name="deadline" required>
+        </div>
+        
+        <div class="mb-3">
+            <label for="valid_until" class="form-label">Valid Until (leave empty for lifelong)</label>
+            <input type="datetime-local" class="form-control" id="valid_until" name="valid_until">
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Category</label>
+            <select class="form-select" name="category" id="category" required>
+                <option value="once">Once</option>
+                <option value="daily">Daily</option>
+                <option value="weekly">Weekly</option>
+                <option value="monthly">Monthly</option>
+                <option value="yearly">Yearly</option>
+            </select>
+        </div>
+        
+        <div class="mb-3" id="repeat-days-container" style="display: none;">
+            <label class="form-label">Repeat on Days</label>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" name="repeat_sun" id="repeat_sun">
+                <label class="form-check-label" for="repeat_sun">Sunday</label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" name="repeat_mon" id="repeat_mon">
+                <label class="form-check-label" for="repeat_mon">Monday</label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" name="repeat_tue" id="repeat_tue">
+                <label class="form-check-label" for="repeat_tue">Tuesday</label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" name="repeat_wed" id="repeat_wed">
+                <label class="form-check-label" for="repeat_wed">Wednesday</label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" name="repeat_thu" id="repeat_thu">
+                <label class="form-check-label" for="repeat_thu">Thursday</label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" name="repeat_fri" id="repeat_fri">
+                <label class="form-check-label" for="repeat_fri">Friday</label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" name="repeat_sat" id="repeat_sat">
+                <label class="form-check-label" for="repeat_sat">Saturday</label>
+            </div>
+        </div>
+        
+        <div class="mb-3">
+            <label class="form-label">Reminder</label>
+            <select class="form-select" name="reminder_type" id="reminder-type" required>
+                <option value="one_day">1 day before</option>
+                <option value="one_week">1 week before</option>
+                <option value="one_month">1 month before</option>
+                <option value="custom">Custom date/time</option>
+                <option value="none">No reminder</option>
+            </select>
+        </div>
+        
+        <div class="mb-3" id="custom-reminder-container" style="display: none;">
+            <label for="custom_reminder_date" class="form-label">Custom Reminder Date/Time</label>
+            <input type="datetime-local" class="form-control" id="custom_reminder_date" name="custom_reminder_date">
+        </div>
+        
+        <button type="submit" class="btn btn-primary">Add Task</button>
+        <a href="{{ url_for('index') }}" class="btn btn-secondary">Cancel</a>
+    </form>
+    
+    <script>
+        document.getElementById('category').addEventListener('change', function() {
+            const repeatDaysContainer = document.getElementById('repeat-days-container');
+            if (this.value === 'weekly') {
+                repeatDaysContainer.style.display = 'block';
+            } else {
+                repeatDaysContainer.style.display = 'none';
+            }
+        });
+        
+        document.getElementById('reminder-type').addEventListener('change', function() {
+            const customReminderContainer = document.getElementById('custom-reminder-container');
+            if (this.value === 'custom') {
+                customReminderContainer.style.display = 'block';
+            } else {
+                customReminderContainer.style.display = 'none';
+            }
+        });
+    </script>
+{% endblock %}

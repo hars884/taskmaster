@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+
+{% block title %}Memorable Days{% endblock %}
+
+{% block content %}
+    <h1 class="mb-4">Memorable Days</h1>
+    
+    <div class="mb-3">
+        <a href="{{ url_for('add_memorable_day') }}" class="btn btn-primary">Add New Memorable Day</a>
+    </div>
+    
+    {% if memorable_days %}
+        <div class="list-group">
+            {% for day in memorable_days %}
+                <div class="list-group-item">
+                    <div class="d-flex w-100 justify-content-between">
+                        <h5 class="mb-1">{{ day.title }}</h5>
+                        <small>
+                            Date: {{ day.date.strftime('%Y-%m-%d') }}
+                            {% if day.date.year != now.year %}
+                                ({{ (now.year - day.date.year) }} year{{ 's' if (now.year - day.date.year) > 1 else '' }} old)
+                            {% endif %}
+                        </small>
+                    </div>
+                    
+                    {% if day.notes %}
+                        <p class="mb-1">{{ day.notes }}</p>
+                    {% endif %}
+                    
+                    <div class="d-flex justify-content-between align-items-center mt-2">
+                        <small class="text-muted">
+                            Reminder: {{ day.reminder_days_before }} days before | 
+                            {% if day.valid_until %}
+                                Valid until: {{ day.valid_until.strftime('%Y-%m-%d') }}
+                            {% else %}
+                                Lifelong
+                            {% endif %}
+                        </small>
+                        
+                        <div>
+                            <a href="{{ url_for('edit_memorable_day', day_id=day.id) }}" class="btn btn-sm btn-primary">Edit</a>
+                            <form action="{{ url_for('delete_memorable_day', day_id=day.id) }}" method="post" class="d-inline">
+                                <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure?')">Delete</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <div class="alert alert-info">No memorable days found. Add your first memorable day!</div>
+    {% endif %}
+{% endblock %}

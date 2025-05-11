@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block title %}Edit Memorable Day{% endblock %}
+
+{% block content %}
+    <h1 class="mb-4">Edit Memorable Day</h1>
+    
+    <form method="POST" action="{{ url_for('edit_memorable_day', day_id=memorable_day.id) }}">
+        <div class="mb-3">
+            <label for="title" class="form-label">Title (e.g., Birthday, Anniversary)</label>
+            <input type="text" class="form-control" id="title" name="title" value="{{ memorable_day.title }}" required>
+        </div>
+        
+        <div class="mb-3">
+            <label for="date" class="form-label">Date</label>
+            <input type="date" class="form-control" id="date" name="date" value="{{ date_formatted }}" required>
+        </div>
+        
+        <div class="mb-3">
+            <label for="reminder_days_before" class="form-label">Remind me X days before</label>
+            <input type="number" class="form-control" id="reminder_days_before" name="reminder_days_before" min="1" value="{{ memorable_day.reminder_days_before }}" required>
+        </div>
+        <div class="mb-3">
+            <label for="valid_until" class="form-label">Valid Until (leave empty for lifelong)</label>
+            <input type="date" class="form-control" id="valid_until" name="valid_until">
+        </div>
+        
+        <div class="mb-3">
+            <label for="notes" class="form-label">Notes</label>
+            <textarea class="form-control" id="notes" name="notes" rows="3">{{ memorable_day.notes }}</textarea>
+        </div>
+        
+        <button type="submit" class="btn btn-primary">Update Memorable Day</button>
+        <a href="{{ url_for('memorable_days') }}" class="btn btn-secondary">Cancel</a>
+    </form>
+{% endblock %}

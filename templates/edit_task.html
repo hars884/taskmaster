@@ -1,0 +1,118 @@
+{% extends "base.html" %}
+
+{% block title %}Edit Task{% endblock %}
+
+{% block content %}
+    <h1 class="mb-4">Edit Task</h1>
+    
+    <form method="POST" action="{{ url_for('edit_task', task_id=task.id) }}">
+        <div class="mb-3">
+            <label for="title" class="form-label">Title</label>
+            <input type="text" class="form-control" id="title" name="title" value="{{ task.title }}" required>
+        </div>
+        
+        <div class="mb-3">
+            <label for="description" class="form-label">Description</label>
+            <textarea class="form-control" id="description" name="description" rows="3">{{ task.description }}</textarea>
+        </div>
+        
+        <div class="mb-3">
+            <label for="deadline" class="form-label">Deadline</label>
+            <input type="datetime-local" class="form-control" id="deadline" name="deadline" value="{{ deadline_formatted }}" required>
+        </div>
+        
+        <div class="mb-3">
+            <label class="form-label">Category</label>
+            <select class="form-select" name="category" id="category" required>
+                <option value="once" {% if task.category == 'once' %}selected{% endif %}>Once</option>
+                <option value="daily" {% if task.category == 'daily' %}selected{% endif %}>Daily</option>
+                <option value="weekly" {% if task.category == 'weekly' %}selected{% endif %}>Weekly</option>
+                <option value="monthly" {% if task.category == 'monthly' %}selected{% endif %}>Monthly</option>
+                <option value="yearly" {% if task.category == 'yearly' %}selected{% endif %}>Yearly</option>
+            </select>
+        </div>
+        
+        <div class="mb-3" id="repeat-days-container" style="display: {% if task.category == 'weekly' %}block{% else %}none{% endif %};">
+            <label class="form-label">Repeat on Days</label>
+            {% set repeat_days = task.repeat_days.split(',') if task.repeat_days else [] %}
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" name="repeat_sun" id="repeat_sun" {% if 'sun' in repeat_days %}checked{% endif %}>
+                <label class="form-check-label" for="repeat_sun">Sunday</label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" name="repeat_mon" id="repeat_mon" {% if 'mon' in repeat_days %}checked{% endif %}>
+                <label class="form-check-label" for="repeat_mon">Monday</label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" name="repeat_tue" id="repeat_tue" {% if 'tue' in repeat_days %}checked{% endif %}>
+                <label class="form-check-label" for="repeat_tue">Tuesday</label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" name="repeat_wed" id="repeat_wed" {% if 'wed' in repeat_days %}checked{% endif %}>
+                <label class="form-check-label" for="repeat_wed">Wednesday</label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" name="repeat_thu" id="repeat_thu" {% if 'thu' in repeat_days %}checked{% endif %}>
+                <label class="form-check-label" for="repeat_thu">Thursday</label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" name="repeat_fri" id="repeat_fri" {% if 'fri' in repeat_days %}checked{% endif %}>
+                <label class="form-check-label" for="repeat_fri">Friday</label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" name="repeat_sat" id="repeat_sat" {% if 'sat' in repeat_days %}checked{% endif %}>
+                <label class="form-check-label" for="repeat_sat">Saturday</label>
+            </div>
+        </div>
+        
+        <div class="mb-3">
+            <label class="form-label">Reminder</label>
+            <select class="form-select" name="reminder_type" id="reminder-type" required>
+                <option value="one_day" {% if task.reminder_type == 'one_day' %}selected{% endif %}>1 day before</option>
+                <option value="one_week" {% if task.reminder_type == 'one_week' %}selected{% endif %}>1 week before</option>
+                <option value="one_month" {% if task.reminder_type == 'one_month' %}selected{% endif %}>1 month before</option>
+                <option value="custom" {% if task.reminder_type == 'custom' %}selected{% endif %}>Custom date/time</option>
+                <option value="none" {% if task.reminder_type == 'none' %}selected{% endif %}>No reminder</option>
+            </select>
+        </div>
+        
+        <div class="mb-3" id="custom-reminder-container" style="display: {% if task.reminder_type == 'custom' %}block{% else %}none{% endif %};">
+            <label for="custom_reminder_date" class="form-label">Custom Reminder Date/Time</label>
+            <input type="datetime-local" class="form-control" id="custom_reminder_date" name="custom_reminder_date" value="{{ custom_reminder_formatted }}">
+        </div>
+        
+        <button type="submit" class="btn btn-primary">Update Task</button>
+        <a href="{{ url_for('index') }}" class="btn btn-secondary">Cancel</a>
+    </form>
+    
+    <script>
+        function toggleRepeatDays() {
+            const repeatDaysContainer = document.getElementById('repeat-days-container');
+            const categorySelect = document.getElementById('category');
+            if (categorySelect.value === 'weekly') {
+                repeatDaysContainer.style.display = 'block';
+            } else {
+                repeatDaysContainer.style.display = 'none';
+            }
+        }
+
+        function toggleCustomReminder() {
+            const customReminderContainer = document.getElementById('custom-reminder-container');
+            const reminderTypeSelect = document.getElementById('reminder-type');
+            if (reminderTypeSelect.value === 'custom') {
+                customReminderContainer.style.display = 'block';
+            } else {
+                customReminderContainer.style.display = 'none';
+            }
+        }
+
+        document.getElementById('category').addEventListener('change', toggleRepeatDays);
+        document.getElementById('reminder-type').addEventListener('change', toggleCustomReminder);
+
+        // Trigger on page load to set correct visibility
+        window.addEventListener('DOMContentLoaded', function() {
+            toggleRepeatDays();
+            toggleCustomReminder();
+        });
+    </script>
+{% endblock %}
